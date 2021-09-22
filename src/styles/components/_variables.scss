@@ -1,0 +1,21 @@
+//COLORS
+$PRIMARY-COLOR : #10ac84;
+$BACKGROUND-COLOR : #1e222e;
+$ELEMENT-COLOR : #222f3e;
+$GRAY-LIGHT-COLOR :#c8d6e5;
+$GRAY-DARK-COLOR : #8395a7;
+$WHITE-COLOR : #fff;
+$RED-COLOR: #b71540;
+
+@mixin flex--center{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+
+//BREAK-POINTS
+$LG-DESKTOP: 1920px;
+$TABLETS : 1024px;
+$S-TABLETS : 895px;
+$M-PHONE: 585px;
+$S-PHONE : 330px;
