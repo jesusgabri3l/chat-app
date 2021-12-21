@@ -1,0 +1,56 @@
+.login{
+    height: 50%;
+    width: 50%;
+    background-color: #fff;
+    box-shadow: 0 0 10px 2px rgba(0,0,0, .16);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    animation-name: entrance;
+    animation-duration: 1s;
+    &__text{
+        color: #8888aa;
+        font-size: 20px;
+        letter-spacing: 0.3px;
+        text-align: center;
+        span{
+            color: $PRIMARY-COLOR;
+            font-weight: 700;
+        }
+    }
+    &__button{
+        margin-top: 50px;
+        width: 70%;
+        border: 1px solid $PRIMARY-COLOR;
+        background-color: $PRIMARY-COLOR-REDUCED;
+        color: $PRIMARY-COLOR;
+        font-weight: 700;
+        padding: 1rem 0rem;
+        border-radius: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        &__img{
+            width: 40px;
+            background-color: #fff;
+            padding: 5px;
+            border-radius: 50%;
+            margin-left: 20px;
+        }
+    }
+}
+@keyframes entrance {
+    from {
+        transform: translate(0px, -100%);
+        opacity: 0;
+    }
+    to{
+        transform: translate(0, 0);
+        opacity: 1;
+
+    }
+}

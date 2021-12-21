@@ -1,0 +1,151 @@
+.chat{
+    width: 50%;
+    height: 90%;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 2px rgba(0,0,0, .16);
+    padding: 1rem;
+    &__messages{
+      height: 90%;
+      max-height: 90%;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      .message{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin-bottom: 1rem;
+        align-self: flex-start;  
+        &--sent{
+          align-self: flex-end;
+          &__text{
+            background-color: $PRIMARY-COLOR;
+            padding: 1.05rem 1rem;
+            border-radius: 40px 30px 0px 40px;
+            &__text{
+              color: #fff;
+              font-size: 1.1rem;
+              letter-spacing: 0.3px;
+            }
+          }
+          &__info{
+            display: flex;
+            align-items: center; 
+            margin-top: 8px;
+            flex-direction: row-reverse;
+            justify-content: flex-start;
+            &__img{
+              width:25px;
+              height:25px;
+              background-color: $BACKGROUND-COLOR;
+              display: block;
+              border-radius: 50%;
+              margin-left: 5px;
+            }
+            &__name{
+              font-weight: 700;
+              color: $PRIMARY-COLOR;
+              margin-left: 35px;
+              font-size: 15px;
+              letter-spacing: 0.3px;
+            }
+            &__time{
+              color: $GRAY-COLOR;
+              font-size: 14px;
+              letter-spacing: 0.3px;
+            }
+          }
+        } 
+        &__text{
+          border-radius: 30px 40px 40px 0;
+          background-color: #f1f1f1;
+          padding: 1.05rem 1rem;
+          &__text{
+            color: #8888aa;
+            font-size: 1.1rem;
+            letter-spacing: 0.3px;
+          }
+        }
+        &__info{
+         display: flex;
+         align-items: center; 
+         margin-top: 8px;
+         &__img{
+           width:25px;
+           height:25px;
+           background-color: $BACKGROUND-COLOR;
+           display: block;
+           border-radius: 50%;
+           margin-right: 5px;
+         }
+         &__name{
+           font-weight: 700;
+           color: $PRIMARY-COLOR;
+           margin-right: 35px;
+           font-size: 15px;
+           letter-spacing: 0.3px;
+         }
+         &__time{
+           color: $GRAY-COLOR;
+           font-size: 14px;
+           letter-spacing: 0.3px;
+         }
+        }
+      }
+    }
+    &__actions{
+      height: 10%;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      background-color: $PRIMARY-COLOR-REDUCED; 
+      border-radius: 100px;
+      .textarea{
+        padding: 0.75rem 1.45rem 0.25rem;
+        height: 100%;
+        width: calc(100% - 145px);
+        resize: none;
+        border: none;
+        font-size: 0.95rem;
+        outline: 0;
+        color: $PRIMARY-COLOR;
+        transition: all 0.4s;
+        letter-spacing: 0.3px;
+        font-size: 0.95rem;
+        background-color: transparent;
+        &::placeholder{
+          color: $PRIMARY-COLOR;
+        }
+        &:focus + .chat__actions{
+          border: 1px solid $PRIMARY-COLOR;
+        }
+      }
+      .button{
+        background-color: $BACKGROUND-COLOR;
+        border: none;
+        outline: none;
+        border-radius: 40px;
+        cursor: pointer;
+        padding: .75rem 1rem;
+        &--send{
+          background-color: $PRIMARY-COLOR;
+          color: $WHITE-COLOR;
+          font-weight: 700;
+          position: absolute;
+          right: 30px;
+          width: 100px;
+        }
+        &--file{
+        background-color: transparent;
+        color: #8888aa;
+        position: absolute;
+        right: 130px;
+        width: 30px;
+        margin-right: 15px;
+        }
+      }
+    }
+  }
