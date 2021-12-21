@@ -16,7 +16,7 @@ function App () {
   };
     // eslint-disable-next-line
   const onFailureLogin = (res: any) => console.log(res);
-    // eslint-disable-next-line
+  // eslint-disable-next-line
   const onRequestLogin = () => { console.log('loading'); };
 
   const onAutoLoadFinished = (res: any) => {
