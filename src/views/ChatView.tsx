@@ -1,7 +1,10 @@
 import React from 'react';
 import Message from '../components/Message';
+import { useAuthOut } from '../utils/auth/useAuth';
 
 export default function ChatView () {
+  const onSuccess = () => { window.location.reload(); };
+  const signOut = useAuthOut(onSuccess);
   return (
     <div className="chat">
       <div className="chat__messages">
@@ -13,10 +16,11 @@ export default function ChatView () {
           <i className="fa fa-paperclip" />
         </button>
         <button className="button button--send" type="button">
-          Send
+          <span>Send</span>
           <i className="fa fa-paper-plane ml-i" />
         </button>
       </div>
+      <button type="button" className="button" onClick={signOut}>Logout</button>
     </div>
   );
 }

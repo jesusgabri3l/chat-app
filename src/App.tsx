@@ -10,14 +10,18 @@ function App () {
 
   const onSuccessLogin = async (res: any) => {
     setLoading(false);
+    // eslint-disable-next-line
     console.log(res);
     setView('chat');
   };
+    // eslint-disable-next-line
   const onFailureLogin = (res: any) => console.log(res);
+    // eslint-disable-next-line
   const onRequestLogin = () => { console.log('loading'); };
 
   const onAutoLoadFinished = (res: any) => {
     setLoading(false);
+    // eslint-disable-next-line
     console.log(res);
   };
 
