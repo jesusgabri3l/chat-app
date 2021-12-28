@@ -16,28 +16,39 @@
       height: calc(100% - 65px);
       max-height: 90%;
       overflow-y: auto;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
+      padding: 1rem;
+        @media only screen and (max-width: $M-PHONE) {
+          padding: 0.75rem;
+        }
       .message{
         display: flex;
         flex-direction: column;
-        width: 50%;
+        width: 65%;
         margin-bottom: 1rem;
         align-self: flex-start;
+        animation-name: message-entrance;
+        animation-duration: 0.7s;
         @media only screen and (max-width: $M-PHONE) {
           width: 70%;
         }
         &__text{
           border-radius: 30px 40px 40px 0;
           background-color: #f1f1f1;
-          padding: 1.05rem 1rem;
-        @media only screen and (max-width: $M-PHONE) {
-          padding: 0.75rem 1rem;
-        }
+          padding: 0.75rem 1.75rem;
+          @media only screen and (max-width: $M-PHONE) {
+            padding: 0.75rem 1rem;
+          }
           &__text{
             color: #8888aa;
             font-size: 1.1rem;
             letter-spacing: 0.3px;
+            line-height: 1.5;
+            display: inline-block;
+            word-wrap:break-word;
+            width: 100%;
           @media only screen and (max-width: $M-PHONE) {
             font-size: 1rem;
           }
@@ -83,56 +94,22 @@
         align-self: flex-end;
           .message__text{
             background-color: $PRIMARY-COLOR;
-            padding: 1.05rem 1rem;
             border-radius: 40px 30px 0px 40px;
-            @media only screen and (max-width: $M-PHONE) {
-              padding: 0.75rem 1rem;
-            }
             &__text{
               color: #fff;
-              font-size: 1.1rem;
-              letter-spacing: 0.3px;
-              @media only screen and (max-width: $M-PHONE) {
-                font-size: 1rem;
-              }
             }
           }
           .message__info{
             display: flex;
             align-items: center; 
-            margin-top: 8px;
             flex-direction: row-reverse;
             justify-content: flex-start;
             &__img{
-              width:25px;
-              height:25px;
-              background-color: $BACKGROUND-COLOR;
-              display: block;
-              border-radius: 50%;
               margin-left: 5px;
             }
             &__name{
-              font-weight: 700;
-              color: $PRIMARY-COLOR;
               margin-left: 35px;
               margin-right: 0;
-              font-size: 15px;
-              letter-spacing: 0.3px;
-              @media only screen and (max-width: $M-PHONE) {
-                font-size: 14px;
-                max-width: 110px;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
-              }
-            }
-            &__time{
-              color: $GRAY-COLOR;
-              font-size: 14px;
-              letter-spacing: 0.3px;
-              @media only screen and (max-width: $M-PHONE) {
-                font-size: 12px;
-              }
             }
           }
       }
@@ -216,5 +193,15 @@
         }
         }
       }
+    }
+  }
+  @keyframes message-entrance {
+    from {
+      transform: scale(0.75);
+      opacity: 0.5;
+    }
+    to{
+      transform: scale(1);
+      opacity: 1;
     }
   }
