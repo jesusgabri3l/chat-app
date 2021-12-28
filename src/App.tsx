@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import socket from './utils/socket/socket';
+import { useAuthIn, refreshTokenSetup } from './utils/auth/useAuth';
 import './styles/styles.scss';
 import ChatView from './views/ChatView';
 import LoginView from './views/LoginView';
-import { useAuthIn, refreshTokenSetup } from './utils/auth/useAuth';
-import socket from './utils/socket/socket';
 
 function App () {
   const [view, setView] = useState('login');
@@ -12,17 +12,16 @@ function App () {
 
   const onSuccessLogin = async (res: any) => {
     refreshTokenSetup(res);
-    setUser(res.profileObj);
     socket.auth.token = res.tokenId;
     socket.connect();
+    setUser(res.profileObj);
     setView('chat');
     setLoading(false);
-    console.log(user);
   };
-  // eslint-disable-next-line
-  const onFailureLogin = (res: any) => {console.log(res); setLoading(false);};
-  // eslint-disable-next-line
-  const onRequestLogin = () => { setLoading(true); };
+
+  const onFailureLogin = () => setLoading(false);
+
+  const onRequestLogin = () => setLoading(true);
 
   const onAutoLoadFinished = (res: any) => { if (res === false) setLoading(false); };
 

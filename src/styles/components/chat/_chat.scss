@@ -1,3 +1,6 @@
+@import "profile";
+@import "message";
+
 .chat{
     width: 50%;
     height: 90%;
@@ -20,99 +23,26 @@
       display: flex;
       flex-direction: column;
       padding: 1rem;
+      scrollbar-color: $PRIMARY-COLOR #e0e0e0;
         @media only screen and (max-width: $M-PHONE) {
           padding: 0.75rem;
         }
-      .message{
-        display: flex;
-        flex-direction: column;
-        width: 65%;
-        margin-bottom: 1rem;
-        align-self: flex-start;
-        animation-name: message-entrance;
-        animation-duration: 0.7s;
-        @media only screen and (max-width: $M-PHONE) {
-          width: 70%;
+        &::-webkit-scrollbar {
+          width: 6px;
         }
-        &__text{
-          border-radius: 30px 40px 40px 0;
-          background-color: #f1f1f1;
-          padding: 0.75rem 1.75rem;
-          @media only screen and (max-width: $M-PHONE) {
-            padding: 0.75rem 1rem;
-          }
-          &__text{
-            color: #8888aa;
-            font-size: 1.1rem;
-            letter-spacing: 0.3px;
-            line-height: 1.5;
-            display: inline-block;
-            word-wrap:break-word;
-            width: 100%;
-          @media only screen and (max-width: $M-PHONE) {
-            font-size: 1rem;
-          }
-          }
+
+        &::-webkit-scrollbar-track {
+          padding: 1px;
+          background: #e0e0e0;
+          border-radius: 50px;
         }
-        &__info{
-         display: flex;
-         align-items: center; 
-         margin-top: 8px;
-         &__img{
-           width:25px;
-           height:25px;
-           background-color: $BACKGROUND-COLOR;
-           display: block;
-           border-radius: 50%;
-           margin-right: 5px;
-          }
-          &__name{
-            font-weight: 700;
-            color: $PRIMARY-COLOR;
-            margin-right: 35px;
-            font-size: 15px;
-            letter-spacing: 0.3px;
-            @media only screen and (max-width: $M-PHONE) {
-              font-size: 14px;
-              max-width: 110px;
-              white-space: nowrap;
-              text-overflow: ellipsis;
-              overflow: hidden;
-            }
-         }
-         &__time{
-           color: $GRAY-COLOR;
-           font-size: 14px;
-           letter-spacing: 0.3px;
-           @media only screen and (max-width: $M-PHONE) {
-            font-size: 12px;
-          }
-         }
+        &::-webkit-scrollbar-thumb {
+          background: $PRIMARY-COLOR;
+          border-radius: 50px;
         }
-      }
-      .message.message--sent{
-        align-self: flex-end;
-          .message__text{
-            background-color: $PRIMARY-COLOR;
-            border-radius: 40px 30px 0px 40px;
-            &__text{
-              color: #fff;
-            }
-          }
-          .message__info{
-            display: flex;
-            align-items: center; 
-            flex-direction: row-reverse;
-            justify-content: flex-start;
-            &__img{
-              margin-left: 5px;
-            }
-            &__name{
-              margin-left: 35px;
-              margin-right: 0;
-            }
-          }
-      }
+        ::-webkit-scrollbar-thumb:hover {
+          background:  $PRIMARY-COLOR;
+        }
     }
     &__actions{
       height: 65px;
@@ -136,6 +66,7 @@
         letter-spacing: 0.3px;
         font-size: 0.95rem;
         background-color: transparent;
+        scrollbar-color: $PRIMARY-COLOR #e0e0e0;
         @media only screen and (max-width: $M-PHONE) {
           font-size: 0.85rem;
           width: calc(100% - 85px);
@@ -145,6 +76,18 @@
         }
         &:focus + .chat__actions{
           border: 1px solid $PRIMARY-COLOR;
+        }
+        &::-webkit-scrollbar {
+          width: 4px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: #e0e0e0;
+          border-radius: 50px;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: $PRIMARY-COLOR;
+          border-radius: 5px;
         }
       }
       .button{

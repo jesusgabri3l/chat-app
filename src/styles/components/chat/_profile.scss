@@ -1,0 +1,96 @@
+.profile{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    @media only screen and (max-width: $M-PHONE) {
+        top: 5px;
+        left: 5px;
+    }
+    &__button{
+        background-color: $PRIMARY-COLOR;
+        outline: none;
+        border: none;
+        border-radius: 50%;
+        box-shadow: 4px 4px 4px rgba(0,0,0, .25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: .25rem;
+        cursor: pointer;
+        &__img{
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            @media only screen and (max-width: $TABLETS) {
+                width: 50px;
+                height: 50px;
+            }
+            @media only screen and (max-width: $M-PHONE) {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+    .options{
+        position: absolute;
+        left: 70px;
+        top: 20px;
+        width: 250px;
+        height: auto;
+        padding: 1rem;
+        border-radius: 20px;
+        z-index: 10000;
+        list-style: none;
+        background-color: #fff;
+        border-top-left-radius: 0;
+        box-shadow: 0 0 10px 2px rgba(0, 0, 0, .16);
+        visibility: hidden;
+        pointer-events: none;
+        transition: all 0.6s;
+        opacity: 0.5;
+        @media only screen and (max-width: $TABLETS) {
+            left: 60px;
+            padding: 0.75rem;
+        }
+        @media only screen and (max-width: $M-PHONE) {
+            left: 50px;
+            width: 60vw;
+            padding: 0.75rem;
+        }
+        &.active{
+            visibility: visible;
+            pointer-events: all;
+            left: 80px;
+            opacity: 1;
+            @media only screen and (max-width: $M-PHONE) {
+                left: 60px;
+            }
+            @media only screen and (max-width: $TABLETS) {
+                left: 70px;
+            }
+            }
+        &__item{
+            margin-bottom: 15px;
+            &__button{
+                background-color: $PRIMARY-COLOR-REDUCED;
+                cursor: pointer;
+                border: 0;
+                width: 100%;
+                height: 100%;
+                color: $PRIMARY-COLOR;
+                font-weight: 500;
+                padding: 1rem;
+                border-radius: 30px;
+                transition: all 0.1s;
+                @media only screen and (max-width: $M-PHONE) {
+                    padding: 0.75rem;
+                    font-size: 15px;
+                }
+                &:hover{
+                    border: 2px solid $PRIMARY-COLOR;
+                    box-shadow: 0 3px 6px rgba(0,0,0, .16);
+                }
+            }
+        }
+    }
+}
