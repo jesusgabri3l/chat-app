@@ -1,12 +1,14 @@
 import React from 'react';
 
-export default function Message () {
+export default function Message ({ message, sent }: any) {
   return (
-    <div className="message">
-      <div className="message__text"><span className="message__text__text text">Hello world!</span></div>
+    <div className={`message ${sent && 'message--sent'}`}>
+      <div className="message__text">
+        <span className="message__text__text text">{message.message}</span>
+      </div>
       <div className="message__info">
-        <span className="message__info__img" />
-        <p className="message__info__name text">Jesus Gabriel</p>
+        <img className="message__info__img" src={message.user.imageUrl} alt="profile" />
+        <p className="message__info__name text">{message.user.name}</p>
         <small className="message__info__time">12:30pm</small>
       </div>
     </div>
