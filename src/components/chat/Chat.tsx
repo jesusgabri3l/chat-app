@@ -1,7 +1,7 @@
 import React, { createRef, useEffect, useState } from 'react';
-import axios from 'axios';
 import moment from 'moment';
 import socket from '../../utils/socket/socket';
+import api from '../../utils/api/api';
 import Message from './Message';
 import Loader from '../Loader';
 
@@ -28,9 +28,15 @@ export default function Chat ({ user }: any) {
 
   useEffect(() => {
     const getAllMessages = async () => {
-      const { data } = await axios('http://localhost:5000/api/messages');
-      setMessages([...messages, ...data]);
-      setLoading(false);
+      try {
+        const { data } = await api.getMessages();
+        setMessages([...messages, ...data]);
+      } catch (e) {
+        // eslint-disable-next-line
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
     };
     getAllMessages();
   }, []);

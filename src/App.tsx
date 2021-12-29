@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import socket from './utils/socket/socket';
 import { useAuthIn, refreshTokenSetup } from './utils/auth/useAuth';
+import api from './utils/api/api';
 import './styles/styles.scss';
 import ChatView from './views/ChatView';
 import LoginView from './views/LoginView';
@@ -12,6 +13,7 @@ function App () {
 
   const onSuccessLogin = async (res: any) => {
     refreshTokenSetup(res);
+    api.setToken(res.tokenId);
     socket.auth.token = res.tokenId;
     socket.connect();
     setUser(res.profileObj);
