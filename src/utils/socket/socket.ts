@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const uri = 'http://localhost:5000/';
+const uri = process.env.REACT_APP_API_URL!;
 
 const socket: any = io(uri, {
   auth: {

@@ -64,9 +64,6 @@ export default function Chat ({ user }: any) {
           ref={messageText}
           onKeyDown={onEnterHandler}
         />
-        <button className="button button--file" type="button">
-          <i className="fa fa-paperclip" />
-        </button>
         <button
           className="button button--send"
           type="button"

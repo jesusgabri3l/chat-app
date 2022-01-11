@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-const URL = 'http://localhost:5000/';
+const URL = process.env.REACT_APP_API_URL!;
 let token = '';
 
 export const api = axios.create({
