@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 export default function Message ({ message, sent }: any) {
-  const date = moment(message.time).format('LT');
+  const date = moment(message.time).calendar();
   return (
     <div className={`message ${sent && 'message--sent'}`}>
       <div className="message__text">

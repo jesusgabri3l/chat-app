@@ -13,7 +13,7 @@ api.interceptors.request.use((req: any) => {
 }, (error) => {
   if (error) {
     // eslint-disable-next-line
-    console.log(error);
+    console.log(error)
   }
 });
 

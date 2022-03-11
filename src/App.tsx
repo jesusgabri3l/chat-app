@@ -17,8 +17,8 @@ function App () {
     socket.auth.token = res.tokenId;
     socket.connect();
     setUser(res.profileObj);
-    setView('chat');
     setLoading(false);
+    setView('chat');
   };
 
   const onFailureLogin = () => setLoading(false);
