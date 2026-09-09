@@ -35,33 +35,9 @@
     }
     &__button{
         margin-top: 50px;
-        width: 70%;
-        border: 2px solid $PRIMARY-COLOR;
-        background-color: $PRIMARY-COLOR-REDUCED;
-        color: $PRIMARY-COLOR;
-        font-weight: 700;
-        padding: 1rem 0rem;
-        border-radius: 50px;
-        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
-        @media only screen and (max-width: $M-PHONE) {
-            width: 100%;
-            font-size: 16px;
-            padding: 0.5rem 0;
-        }
-        &__img{
-            width: 40px;
-            background-color: #fff;
-            padding: 5px;
-            border-radius: 50%;
-            margin-left: 20px;
-            @media only screen and (max-width: $M-PHONE) {
-                width: 35px;
-            }
-        }
     }
 }
 @keyframes entrance {

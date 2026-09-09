@@ -1,37 +1,41 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { googleLogout } from '@react-oauth/google';
+import type { CredentialResponse } from '@react-oauth/google';
+
 import socket from './utils/socket/socket';
-import { useAuthIn, refreshTokenSetup } from './utils/auth/useAuth';
+import { decodeGoogleCredential } from './utils/auth/decodeGoogleUser';
 import api from './utils/api/api';
+import type { ChatUser } from './types';
 import './styles/styles.scss';
 import ChatView from './views/ChatView';
 import LoginView from './views/LoginView';
 
-function App () {
-  const [view, setView] = useState('login');
-  const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(true);
+function App() {
+  const [user, setUser] = useState<ChatUser | null>(null);
 
-  const onSuccessLogin = async (res: any) => {
-    refreshTokenSetup(res);
-    api.setToken(res.tokenId);
-    socket.auth.token = res.tokenId;
+  const handleLoginSuccess = (credentialResponse: CredentialResponse) => {
+    const { credential } = credentialResponse;
+    if (!credential) return;
+
+    api.setToken(credential);
+    socket.auth = { token: credential };
     socket.connect();
-    setUser(res.profileObj);
-    setLoading(false);
-    setView('chat');
+    setUser(decodeGoogleCredential(credential));
   };
 
-  const onFailureLogin = () => setLoading(false);
-
-  const onRequestLogin = () => setLoading(true);
-
-  const onAutoLoadFinished = (res: any) => { if (res === false) setLoading(false); };
-
-  const signIn = useAuthIn(onSuccessLogin, onFailureLogin, onRequestLogin, onAutoLoadFinished);
+  const handleLogout = () => {
+    googleLogout();
+    socket.disconnect();
+    setUser(null);
+  };
 
   return (
     <div className="container">
-      { view === 'login' ? <LoginView signIn={signIn} loading={loading} /> : <ChatView user={user} /> }
+      {user ? (
+        <ChatView user={user} onLogout={handleLogout} />
+      ) : (
+        <LoginView onSuccess={handleLoginSuccess} />
+      )}
     </div>
   );
 }

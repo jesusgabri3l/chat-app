@@ -1,29 +1,23 @@
-import React from 'react';
-import googleLogo from '../assets/google.png';
-import Loading from '../components/Loader';
+import { GoogleLogin } from '@react-oauth/google';
+import type { CredentialResponse } from '@react-oauth/google';
 
-export default function LoginView ({ signIn, loading }: any) {
+type LoginViewProps = {
+  onSuccess: (credentialResponse: CredentialResponse) => void;
+};
+
+export default function LoginView({ onSuccess }: LoginViewProps) {
   return (
     <div className="login">
-      {
-        loading
-          ? <Loading />
-          : (
-            <>
-              <p className="login__text">
-                Wanna
-                <span> chat</span>
-                ? Just log into your
-                <span> Google </span>
-                account
-              </p>
-              <button className="login__button" type="button" onClick={signIn}>
-                Sign In with Google
-                <img alt="Google logo" src={googleLogo} className="login__button__img" />
-              </button>
-            </>
-          )
-      }
+      <p className="login__text">
+        Wanna
+        <span> chat</span>
+        ? Just log into your
+        <span> Google </span>
+        account
+      </p>
+      <div className="login__button">
+        <GoogleLogin onSuccess={onSuccess} onError={() => console.error('Google login failed')} />
+      </div>
     </div>
   );
 }

@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
-import socket from '../utils/socket/socket';
-import { useAuthOut } from '../utils/auth/useAuth';
+import { useState } from 'react';
 import Chat from '../components/chat/Chat';
+import type { ChatUser } from '../types';
 
-export default function ChatView ({ user }: any) {
+type ChatViewProps = {
+  user: ChatUser;
+  onLogout: () => void;
+};
+
+export default function ChatView({ user, onLogout }: ChatViewProps) {
   const [showOptions, setShowOptions] = useState(false);
-  //  Auth handle for Logout
-  const onSuccess = () => { socket.disconnect(); window.location.reload(); };
-  const signOut = useAuthOut(onSuccess);
+
   return (
     <>
       <Chat user={user} />
       <div className="profile">
-        <button className="profile__button" type="button" onClick={() => setShowOptions(!showOptions)}>
+        <button
+          className="profile__button"
+          type="button"
+          onClick={() => setShowOptions(!showOptions)}
+        >
           <img src={user.imageUrl} alt="" className="profile__button__img" />
         </button>
-        <ul className={`options ${showOptions && 'active'}`}>
+        <ul className={`options ${showOptions ? 'active' : ''}`}>
           <li className="options__item">
-            <button className="options__item__button" type="button" onClick={signOut}>
+            <button className="options__item__button" type="button" onClick={onLogout}>
               Logout
               <i className="fa fa-sign-out-alt ml-i" />
             </button>

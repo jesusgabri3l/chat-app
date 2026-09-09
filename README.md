@@ -1,46 +1,44 @@
-# Getting Started with Create React App
+# chat-app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React frontend for a realtime chat app, authenticated with Google Sign-In. Talks to [chat-app-backend](https://github.com/jesusgabri3l/chat-app-backend) over REST (message history) and Socket.IO (realtime messages).
 
-## Available Scripts
+## Stack
 
-In the project directory, you can run:
+- Vite + React 19 + TypeScript 5
+- `@react-oauth/google` (Google Identity Services) for sign-in — the old `react-google-login` package relied on the legacy Google Sign-In JS library, which Google shut down in 2023
+- `socket.io-client` for realtime messages
+- Sass
 
-### `yarn start`
+## Local development
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+cp .env.example .env   # fill in real values
+npm install
+npm run dev
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Required env vars (see `.env.example`):
 
-### `yarn test`
+- `VITE_API_URL` — the backend URL, trailing slash included (e.g. `http://localhost:5000/`)
+- `VITE_GOOGLE_CLIENT_ID` — Google OAuth Client ID, must match the one [chat-app-backend](https://github.com/jesusgabri3l/chat-app-backend) verifies tokens against
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The backend's `CLIENT_ORIGIN` env var must include this app's origin (e.g. `http://localhost:5173` in dev, `https://jesusgabri3l.github.io` in production) or CORS/Socket.IO will reject requests.
 
-### `yarn build`
+## Scripts
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `npm run dev` — dev server
+- `npm run build` — type-check and build to `dist`
+- `npm test` — Vitest
+- `npm run lint` — ESLint
+- `npm run format` — Prettier
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Deploy
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+GitHub Pages via `.github/workflows/deploy.yml`, triggered on push to `master`. It needs two repo variables (not secrets — a Google Client ID and a backend URL aren't sensitive):
 
-### `yarn eject`
+```bash
+gh variable set VITE_API_URL --body "https://<your-backend>.onrender.com/"
+gh variable set VITE_GOOGLE_CLIENT_ID --body "<client-id>.apps.googleusercontent.com"
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Pages must be switched to "GitHub Actions" as the source (`gh api -X POST repos/<owner>/chat-app/pages -f build_type=workflow`, or `-X PUT` if Pages was already enabled from the old `gh-pages` branch deploy).

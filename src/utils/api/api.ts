@@ -1,28 +1,25 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
+import type { AxiosResponse } from 'axios';
+import type { ChatMessage } from '../../types';
 
-const URL = process.env.REACT_APP_API_URL!;
+const URL = import.meta.env.VITE_API_URL as string;
 let token = '';
 
 export const api = axios.create({
   baseURL: `${URL}api/`,
 });
 
-api.interceptors.request.use((req: any) => {
+api.interceptors.request.use((req) => {
   req.headers.authorization = token;
   return req;
-}, (error) => {
-  if (error) {
-    // eslint-disable-next-line
-    console.log(error)
-  }
 });
 
 export default {
   URL,
-  getMessages (): Promise<AxiosResponse> {
+  getMessages(): Promise<AxiosResponse<ChatMessage[]>> {
     return api.get('messages');
   },
-  setToken (tokenId: string): void {
+  setToken(tokenId: string): void {
     token = tokenId;
   },
 };

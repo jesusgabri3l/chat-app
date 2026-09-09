@@ -1,10 +1,19 @@
-import React from 'react';
-import moment from 'moment';
+import type { ChatMessage } from '../../types';
 
-export default function Message ({ message, sent }: any) {
-  const date = moment(message.time).calendar();
+type MessageProps = {
+  message: ChatMessage;
+  sent: boolean;
+};
+
+const dateFormatter = new Intl.DateTimeFormat(undefined, {
+  dateStyle: 'medium',
+  timeStyle: 'short',
+});
+
+export default function Message({ message, sent }: MessageProps) {
+  const date = dateFormatter.format(new Date(message.time));
   return (
-    <div className={`message ${sent && 'message--sent'}`}>
+    <div className={`message ${sent ? 'message--sent' : ''}`}>
       <div className="message__text">
         <span className="message__text__text text">{message.message}</span>
       </div>
