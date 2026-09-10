@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import App from '../App';
 
@@ -10,12 +10,17 @@ const fakeCredential = (payload: object) => {
   return `${base64url({ alg: 'RS256' })}.${base64url(payload)}.signature`;
 };
 
-const credential = fakeCredential({
+const futureExp = Math.floor(Date.now() / 1000) + 3600;
+const pastExp = Math.floor(Date.now() / 1000) - 3600;
+
+const basePayload = {
   sub: 'google-123',
   name: 'Ada Lovelace',
   email: 'ada@example.com',
   picture: 'https://example.com/avatar.png',
-});
+};
+
+const credential = fakeCredential({ ...basePayload, exp: futureExp });
 
 vi.mock('@react-oauth/google', () => ({
   GoogleOAuthProvider: ({ children }: { children: React.ReactNode }) => children,
@@ -36,6 +41,10 @@ vi.mock('../utils/api/api', () => ({
 }));
 
 describe('App', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   it('shows the login screen before authenticating', () => {
     render(<App />);
     expect(screen.getByText(/just log into your/i)).toBeInTheDocument();
@@ -47,5 +56,30 @@ describe('App', () => {
     await user.click(screen.getByRole('button', { name: /sign in with google/i }));
 
     expect(await screen.findByPlaceholderText('Write your message')).toBeInTheDocument();
+  });
+
+  it('restores the session on reload while the token is still valid', async () => {
+    localStorage.setItem(
+      'devchat:session',
+      JSON.stringify({ credential, user: { ...basePayload, googleId: basePayload.sub, imageUrl: basePayload.picture }, exp: futureExp }),
+    );
+
+    render(<App />);
+    expect(await screen.findByPlaceholderText('Write your message')).toBeInTheDocument();
+  });
+
+  it('discards an expired stored session and shows the login screen', () => {
+    const expiredCredential = fakeCredential({ ...basePayload, exp: pastExp });
+    localStorage.setItem(
+      'devchat:session',
+      JSON.stringify({
+        credential: expiredCredential,
+        user: { ...basePayload, googleId: basePayload.sub, imageUrl: basePayload.picture },
+        exp: pastExp,
+      }),
+    );
+
+    render(<App />);
+    expect(screen.getByText(/just log into your/i)).toBeInTheDocument();
   });
 });
