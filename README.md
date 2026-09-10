@@ -2,6 +2,8 @@
 
 React frontend for a realtime chat app, authenticated with Google Sign-In. Talks to [chat-app-backend](https://github.com/jesusgabri3l/chat-app-backend) over REST (message history) and Socket.IO (realtime messages).
 
+Live at [jesusgabri3l.github.io/chat-app](https://jesusgabri3l.github.io/chat-app/) (backend runs on Render's free tier — sleeps on inactivity, first login after idle can take ~30-50s while it wakes up).
+
 ## Stack
 
 - Vite + React 19 + TypeScript 5
@@ -41,4 +43,4 @@ gh variable set VITE_API_URL --body "https://<your-backend>.onrender.com/"
 gh variable set VITE_GOOGLE_CLIENT_ID --body "<client-id>.apps.googleusercontent.com"
 ```
 
-Pages must be switched to "GitHub Actions" as the source (`gh api -X POST repos/<owner>/chat-app/pages -f build_type=workflow`, or `-X PUT` if Pages was already enabled from the old `gh-pages` branch deploy).
+Pages must be switched to "GitHub Actions" as the source: `gh api -X PUT repos/<owner>/chat-app/pages -f build_type=workflow`.
